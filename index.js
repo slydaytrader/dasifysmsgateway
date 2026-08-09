@@ -6,7 +6,7 @@ app.use(express.json());
 // EMQX Cloud Connection Details
 const MQTT_URL = 'mqtts://m518b210.ala.us-east-1.emqxsl.com:8883';
 const options = {
-  clientId: 'Render_Middleman_' + Math.random().toString(16.substring(2, 8)),
+  clientId: 'Render_Middleman_' + Math.random().toString(16).substring(2, 8),
   // If your EMQX deployment requires username/password, add them here:
   // username: 'your_username',
   // password: 'your_password',
@@ -24,10 +24,9 @@ client.on('connect', () => {
 });
 
 // Listen for ACKs coming back from the STM32 Gateway
-client.on('topic', (topic, payload) => {
+client.on('message', (topic, payload) => {
   if (topic === 'gateway/ack') {
     console.log('Received ACK from gateway:', payload.toString());
-    // Optional: Here you can forward the ACK via HTTP back to your restricted server if needed
   }
 });
 
