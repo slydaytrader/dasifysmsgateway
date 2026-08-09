@@ -3,17 +3,16 @@ const mqtt = require('mqtt');
 const app = express();
 app.use(express.json());
 
-// EMQX Cloud Connection Details
+// EMQX Cloud Connection Details with Authentication
 const MQTT_URL = 'mqtts://m518b210.ala.us-east-1.emqxsl.com:8883';
 const options = {
   clientId: 'Render_Middleman_' + Math.random().toString(16).substring(2, 8),
-  // If your EMQX deployment requires username/password, add them here:
-  // username: 'your_username',
-  // password: 'your_password',
+  username: 'dasifysms',
+  password: 'gamepage6',
   rejectUnauthorized: true // Validates EMQX SSL certificate
 };
 
-console.log('Connecting to EMQX Cloud...');
+console.log('Connecting to EMQX Cloud with credentials...');
 const client = mqtt.connect(MQTT_URL, options);
 
 client.on('connect', () => {
